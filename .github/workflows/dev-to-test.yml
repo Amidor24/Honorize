@@ -14,27 +14,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node (or Python, etc.)
-        uses: actions/setup-node@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          node-version: 18
+          dotnet-version: '10.0.x'  # or your version
 
-      - name: Install dependencies
-        run: npm install
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build --no-restore --configuration Release
 
       - name: Run unit tests
-        run: npm test
+        run: dotnet test --no-build --configuration Release
 
   deploy-to-test:
     name: Deploy to Test Branch
     runs-on: ubuntu-latest
-    needs: run-tests  # Runs ONLY if tests passed
+    needs: run-tests   # Only run if tests passed
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: dev  # take the code from dev branch
+          ref: dev
 
       - name: Push changes to test branch
         run: |
@@ -44,3 +47,4 @@ jobs:
           git checkout test
           git merge dev --no-ff -m "Auto-merge dev → test [skip ci]"
           git push origin test
+
