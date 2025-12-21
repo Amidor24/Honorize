@@ -22,10 +22,10 @@ jobs:
           dotnet-version: '10.0.x'  # Change to your .NET SDK version
 
       # - name: Restore dependencies
-      #   run: dotnet restore Honorise/Backend/*.slnx
+      #   run: dotnet restore Honorise/Backend/Backend.slnx
 
       - name: Build
-        run: dotnet build Honorise/Backend/*.slnx --configuration Release --no-restore
+        run: dotnet build Honorise/Backend/Backend.slnx --configuration Release --no-restore
 
   test:
     name: Test
