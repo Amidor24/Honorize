@@ -19,13 +19,13 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'  # Change to your .NET SDK version
+          dotnet-version: '9.0.x'  # Change to your .NET SDK version
 
       # - name: Restore dependencies
-      #   run: dotnet restore Honorise/Backend/Backend.slnx
+      #   run: dotnet restore Honorise/Backend/Backend.sln
 
       - name: Build
-        run: dotnet build Honorise/Backend/Backend.slnx --configuration Release --no-restore
+        run: dotnet build Honorise/Backend/Backend.sln --configuration Release --no-restore
 
   test:
     name: Test
@@ -39,7 +39,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '9.0.x'
 
       - name: Run Tests
         run: dotnet test Honorise/Backend/*Tests/*.csproj --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
